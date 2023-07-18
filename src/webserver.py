@@ -16,10 +16,18 @@ def create_app(database):
 
 
      # ROUTES ADD USERS
-    @app.route('/user', methods=['POST'])
+    @app.route('/user/add', methods=['POST'])
     def add_dogs():
             return dogs_add_user()
     
+
+
+
+
+    # ROUTES GET USERS
+    @app.route('/user', methods=['GET'])
+    def get_dogs():
+            return dogs_get_user()
     
     # TO EXECUTE THE APPLICATION
     if __name__ == '__main__':

@@ -1,5 +1,5 @@
 import src.database as db
-from flask import request
+from flask import request, jsonify
 
 
 
@@ -12,7 +12,7 @@ def init_db(database):
 
 def dogs_add_user():
     try:
-        con = db.conectdb()  # Asegúrate de llamar correctamente la función 'conectdb()'
+        con = db.conectdb()
         if con is None:
             return "Error: No se pudo establecer la conexión a la base de datos"
         
@@ -21,7 +21,7 @@ def dogs_add_user():
         id = data["id"]
 
         name = data["name"]
-        address = data["adress"]  # Corregí el nombre de la variable 'adress' a 'address'
+        address = data["adress"] 
         phone = data["phone"]
         cursor.execute('INSERT INTO clientes (id, name, adress, phone) VALUES (%s,%s, %s, %s)', (id, name, address, phone,))
         con.commit()
@@ -31,7 +31,27 @@ def dogs_add_user():
 
         return "Usuario creado exitosamente"
     except Exception as e:
-        # Manejo de excepciones para capturar cualquier error durante la ejecución
+
         return f"Error al agregar el usuario: {str(e)}"
+    
+
+
+def dogs_get_user():
+    try:
+        con = db.conectdb()
+        if con is None:
+            return "Error: No se pudo establecer la conexión a la base de datos"
+        
+        cursor = con.cursor()
+        cursor.execute('SELECT * FROM clientes')
+        users = cursor.fetchall()
+        con.close()
+
+        data_users = [{'id': user[0], 'name': user[1], 'address': user[2], 'phone': user[3]} for user in users]
+
+        return jsonify(data_users)
+    except Exception as e:
+
+        return f"Error al obtener los usuarios: {str(e)}"
 
 
