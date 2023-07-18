@@ -15,7 +15,7 @@ def create_app(database):
     init_db(database)
 
 
-     # ROUTES USERS
+     # ROUTES ADD USERS
     @app.route('/user', methods=['POST'])
     def add_dogs():
             return dogs_add_user()
