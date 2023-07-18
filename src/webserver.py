@@ -15,7 +15,12 @@ def create_app(database):
     init_db(database)
 
 
-
+     # ROUTES USERS
+    @app.route('/user', methods=['POST'])
+    def add_dogs():
+            return dogs_add_user()
+    
+    
     # TO EXECUTE THE APPLICATION
     if __name__ == '__main__':
         app.run(debug=True)

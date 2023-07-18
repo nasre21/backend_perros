@@ -4,7 +4,7 @@ import mysql.connector
 def conectdb():
     host = "127.0.0.1"
     user = "root"
-    passwd = "CONTRASENA"
+    passwd = "NASSERDINE"
     database = "Dogs_product"
     port = 3306
     
