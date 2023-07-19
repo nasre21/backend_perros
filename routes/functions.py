@@ -55,3 +55,37 @@ def dogs_get_user():
         return f"Error al obtener los usuarios: {str(e)}"
 
 
+def user_delete(id_delete):
+    con = db.conectdb()
+    cursor = con.cursor()
+    cursor.execute('DELETE FROM clientes WHERE id = %s', (id_delete,))
+    con.commit()
+    con.close()
+    return 'Product deleted'
+
+def user_edit(id_edit):
+    con = db.conectdb()
+    cursor = con.cursor()
+
+
+def user_edit(id_edit,data):
+    con = db.conectdb()
+    cursor = con.cursor()
+    
+    
+    if "name" in data:
+        name = data["name"]
+        cursor.execute('UPDATE clientes SET name = %s WHERE id = %s', (name, id_edit))
+
+    if "adress" in data:
+        adress = data["adress"]
+        cursor.execute('UPDATE clientes SET adress = %s WHERE id = %s', (adress, id_edit))
+
+    if "phone" in data:
+        phone = data["phone"]
+        cursor.execute('UPDATE clientes SET phone = %s WHERE id = %s', (phone, id_edit))
+              
+    con.commit()
+    con.close()
+
+    return 'Dates modified'
