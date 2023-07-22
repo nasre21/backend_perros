@@ -63,11 +63,6 @@ def user_delete(id_delete):
     con.close()
     return 'Product deleted'
 
-def user_edit(id_edit):
-    con = db.conectdb()
-    cursor = con.cursor()
-
-
 def user_edit(id_edit,data):
     con = db.conectdb()
     cursor = con.cursor()

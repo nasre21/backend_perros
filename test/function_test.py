@@ -19,18 +19,13 @@ def app():
     return app
 
 
-def test_create_user(app):
+def test_get_user(app):
         with app.test_client() as client:
             response = client.get('/user')
             assert response.status_code == 200
 
-import pytest
-import mysql.connector
-from mysql.connector import errors
 
-import pytest
-import mysql.connector
-
+            
 def test_exist_database():
     try:
         con = mysql.connector.connect(
@@ -46,3 +41,21 @@ def test_exist_database():
     except Exception as e:
         # If an exception occurs, fail the test with the error message
         pytest.fail(f"Caught exception: {type(e).__name__}")
+
+
+# Test para verificar que el usuario se agregue correctamente
+def test_dogs_add_user(app):
+    with app.test_client() as client:
+        # Datos de prueba para el usuario
+        user_data = {
+           
+            "name": "bilbaino",
+            "adress": "aitorcarisma@gmail.com",
+            "phone": "632123454"
+        }
+
+        # Llamamos a la función que queremos probar y pasamos la conexión a la base de datos
+        response = client.post('/user/add', json=user_data)  # Usamos 'json' en lugar de 'data' para enviar datos como JSON
+
+        # Comprobamos que la respuesta tiene el código de estado 200 (OK)
+        assert response.status_code == 200
