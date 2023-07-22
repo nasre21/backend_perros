@@ -30,9 +30,9 @@ def dogs_add_user():
         print('Usuario agregado exitosamente')
 
         return "Usuario creado exitosamente"
-    except Exception as e:
+    except:
 
-        return f"Error al agregar el usuario: {str(e)}"
+        return "Error al agregar el usuario"
     
 
 

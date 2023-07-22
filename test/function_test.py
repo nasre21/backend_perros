@@ -48,14 +48,16 @@ def test_dogs_add_user(app):
     with app.test_client() as client:
         # Datos de prueba para el usuario
         user_data = {
-           
             "name": "bilbaino",
             "adress": "aitorcarisma@gmail.com",
             "phone": "632123454"
         }
 
-        # Llamamos a la función que queremos probar y pasamos la conexión a la base de datos
-        response = client.post('/user/add', json=user_data)  # Usamos 'json' en lugar de 'data' para enviar datos como JSON
+        # Llamamos a la función que queremos probar y pasamos los datos de prueba en formato JSON
+        response = client.post('/user/add', json=user_data)
 
         # Comprobamos que la respuesta tiene el código de estado 200 (OK)
         assert response.status_code == 200
+
+        
+        assert response.data.decode("utf-8") == "Error al agregar el usuario"
