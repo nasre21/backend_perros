@@ -15,29 +15,87 @@ def create_app(database):
     init_db(database)
 
 
-     # ROUTES ADD USERS
+        # ROUTES ADD USERS
     @app.route('/user/add', methods=['POST'])
-    def add_user():
-            return dogs_add_user()
+    def add_user_route():
+            return add_user()
     
-
-
-
-
     # ROUTES GET USERS
+    # routes a_get
     @app.route('/user', methods=['GET'])
-    def get_user():
-            return dogs_get_user()
+    def get_users():
+            return users_get()
+    
+    @app.route("/user/<int:id>", methods=['GET'])
+    def get_a_user(id):
+        return get_user(id)
+    
     # ROUTES DELETE USERS  
-    @app.route('/user/delete/<int:id_delete>', methods=['DELETE'])
-    def delete_user(id_delete):
-          return user_delete(id_delete)
+    @app.route('/user/<int:id>', methods=['DELETE'])
+    def delete_user(id):
+          return user_delete(id)
     
    #  ROUTES UPDATE USERS  
-    @app.route('/user/edit/<int:id_edit>', methods=['PATCH'])
-    def edit_user(id_edit):
+    @app.route('/user/int:id>', methods=['PATCH'])
+    def edit_user(id):
           data = request.get_json()
-          return user_edit(id_edit, data)
+          return user_edit(id, data)
+    
+
+ #Routes add Dogs
+
+    @app.route('/dogs', methods=['GET'])
+    def get_dogs():
+            return dogs_get()
+
+# routes a_get
+    @app.route("/dogs/<int:id_product>", methods=['GET'])
+    def get_a_product(id_product):
+        return get_product(id_product)
+    
+    @app.route('/dogs', methods=['POST'])
+    def add_dogs():
+            return dogs_add()    
+
+#routes delete
+    @app.route('/dogs/<int:id_delete>', methods=['DELETE'])
+    def delete_dogs(id_delete):
+            return dogs_delete(id_delete)
+    
+    #  ROUTES UPDATE USERS  
+    @app.route("/dogs/<int:id>", methods=['PATCH'])
+    def edit_dogs(id):
+          data = request.get_json()
+          return dogs_edit(id, data)
+    
+
+
+    # ROUTES ADD COMPRAS
+    @app.route('/compras', methods=['POST'])
+    def create_compra():
+        return add_compra()
+
+    # ROUTES GET COMPRAS
+    # routes a_get
+    @app.route('/compras', methods=['GET'])
+    def get_all_compras():
+        return get_compras()
+
+    @app.route("/compras/<int:id>", methods=['GET'])
+    def get_a_compra(id):
+        return get_compra(id)
+
+    # ROUTES DELETE COMPRAS
+    @app.route('/compras/<int:id>', methods=['DELETE'])
+    def delete_a_compra(id):
+        return delete_compra(id)
+
+    # ROUTES UPDATE COMPRAS
+    @app.route('/compras/<int:id>', methods=['PATCH'])
+    def edit_a_compra(id):
+        data = request.json 
+        return edit_compra(id,data)
+
     
 
     # TO EXECUTE THE APPLICATION
@@ -45,5 +103,8 @@ def create_app(database):
         app.run(debug=True)
     # with app.run we're going to indicate that the app is going to be in development
     return app
+
+
+
 
 
