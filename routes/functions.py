@@ -15,37 +15,38 @@ def add_user():
         con = db.conectdb()
         if con is None:
             return "Error: No se pudo establecer la conexión a la base de datos"
-
+        
         cursor = con.cursor()
         data = request.get_json()
 
-        # Since the 'id' key might not exist in the data dictionary,
-        # it's better to use the get() method with a default value.
-        id = data.get("id")
-        name = data.get("name")
-        description = data.get("adress")
-        precio = data.get("phone")
-
-        cursor.execute('INSERT INTO clientes (id, name, adress, phone) VALUES (%s, %s, %s, %s)', (id, name, description, precio,))
+        name = data["name"]
+        adress = data["adress"]
+        phone = data["phone"] 
+        password = data["password"]
+        message = data["message"]
+        cursor.execute('INSERT INTO clientes ( name, adress, phone, password, message) VALUES (%s, %s, %s, %s, %s)', (name, adress, phone, password, message))
+        
         con.commit()
         con.close()
 
-        print('Usuario agregado exitosamente')  # Add this line to check the function flow
+        print('User agregado exitosamente')
 
-        return "Usuario creado exitosamente"
-    except Exception as e:
-        print('Error:', str(e))  # Print the error message to diagnose the issue
-        return "Error al agregar el usuario"
+        return "User creado exitosamente"
+    except Exception as e:  # Captura excepciones específicas y muestra el error
+        print("Error:", e)
+        return "Error al agregar el user"
+
+
 
     
 def get_user(id):
     con = db.conectdb()
     cursor = con.cursor()
-    cursor.execute('SELECT * FROM clientes WHERE id = %s', (id,))
+    cursor.execute('SELECT * FROM clientes WHERE id_cliente = %s', (id,))
     data_user = cursor.fetchone()
     
     if data_user:
-        data = {'id': data_user[0], 'name': data_user[1], 'adress': data_user[2], 'phone': data_user[3]}
+        data = {'id_cliente': data_user[0], 'name': data_user[1], 'adress': data_user[2], 'phone': data_user[3]}
         con.close()
         print(data)
         return jsonify(data)
@@ -73,7 +74,7 @@ def users_get():
 def user_delete(id_delete):
     con = db.conectdb()
     cursor = con.cursor()
-    cursor.execute('DELETE FROM clientes WHERE id = %s', (id_delete,))
+    cursor.execute('DELETE FROM clientes WHERE id_cliente = %s', (id_delete,))
     con.commit()
     con.close()
     return 'Product deleted'
@@ -85,15 +86,15 @@ def user_edit(id_edit,data):
     
     if "name" in data:
         name = data["name"]
-        cursor.execute('UPDATE clientes SET name = %s WHERE id = %s', (name, id_edit))
+        cursor.execute('UPDATE clientes SET name = %s WHERE id_cliente = %s', (name, id_edit))
 
     if "adress" in data:
         adress = data["adress"]
-        cursor.execute('UPDATE clientes SET adress = %s WHERE id = %s', (adress, id_edit))
+        cursor.execute('UPDATE clientes SET adress = %s WHERE id_cliente = %s', (adress, id_edit))
 
     if "phone" in data:
         phone = data["phone"]
-        cursor.execute('UPDATE clientes SET phone = %s WHERE id = %s', (phone, id_edit))
+        cursor.execute('UPDATE clientes SET phone = %s WHERE id_cliente = %s', (phone, id_edit))
               
     con.commit()
     con.close()

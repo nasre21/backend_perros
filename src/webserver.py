@@ -16,7 +16,7 @@ def create_app(database):
 
 
         # ROUTES ADD USERS
-    @app.route('/user/add', methods=['POST'])
+    @app.route('/user', methods=['POST'])
     def add_user_route():
             return add_user()
     
