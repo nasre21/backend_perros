@@ -1,8 +1,6 @@
 
 import pytest
 from routes.functions import * 
-from flask import Flask
-import os
 from src.webserver import create_app
 import mysql.connector 
 
