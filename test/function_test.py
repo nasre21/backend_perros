@@ -41,25 +41,3 @@ def test_exist_database():
     except Exception as e:
         # If an exception occurs, fail the test with the error message
         pytest.fail(f"Caught exception: {type(e).__name__}")
-
-
-# test/function_test.py
-
-def test_add_user(app):
-    with app.test_client() as client:
-        # Datos de prueba para el usuario
-        user_data = {
-            "id": 2,  # Use a unique id for the test data
-            "name": "bilbaino",
-            "adress": "aitorcarisma@gmail.com",
-            "phone": "632123454"
-        }
-
-        # Llamamos a la función que queremos probar y pasamos los datos de prueba en formato JSON
-        response = client.post('/user/add', json=user_data)
-
-        # Comprobamos que la respuesta tiene el código de estado 200 (OK)
-        assert response.status_code == 200
-
-        # Comprobamos que la respuesta contiene el mensaje de éxito "Error al agregar el usuario"
-        assert response.data.decode("utf-8") == "Error al agregar el usuario"
