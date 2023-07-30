@@ -24,7 +24,7 @@ def add_user():
         phone = data["phone"] 
         password = data["password"]
         message = data["message"]
-        cursor.execute('INSERT INTO clientes ( name, adress, phone, password, message) VALUES (%s, %s, %s, %s, %s)', (name, adress, phone, password, message))
+        cursor.execute('INSERT INTO clientes ( name, address, phone, password, message) VALUES (%s, %s, %s, %s, %s)', (name, adress, phone, password, message))
         
         con.commit()
         con.close()
